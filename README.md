@@ -74,7 +74,7 @@ Contributions are welcome! Please fork this repository and submit a pull request
 
 📧 Contact
 Author: Devendra Lodhi
-Agency: Flyboost Media
+Agency: Z Digital
 Portfolio: www.devendra.bio
 Email: contact@devendra.bio | contact@flyboost.in
 GitHub Repo: FoodZipp
