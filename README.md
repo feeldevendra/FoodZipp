@@ -189,3 +189,44 @@ Email: contact@devendra.bio | contact@flyboost.in
 GitHub Repo: FoodZipp
 
 ⭐ If you like this project, don’t forget to star the repo!
+
+---
+
+## 🔐 QR-Based Authentication Android App
+
+This module delivers the secure QR-powered login experience described in "Scope of Work Part One." It is a Jetpack Compose Android application that ships with:
+
+- ✅ **Branded QR code generation** (static & dynamic session modes) pointing to `https://auth.foodzipp.app/login?source=qr`.
+- ✅ **Multi-channel login**: mobile OTP, email verification, Instagram handle, and Facebook ID.
+- ✅ **Simulated OTP flows** with extension points for SMS/email gateways.
+- ✅ **OAuth-ready social login hooks** prepared for Meta Login API integration.
+- ✅ **Terms of service compliance** with consent gating.
+- ✅ **Analytics hooks** that track QR generation, login choices, and verification events.
+- ✅ **Mobile-first UI** optimised for handheld devices.
+
+### 📲 Running the Android app
+
+1. Ensure you have **Android Studio Jellyfish (or newer)** with **JDK 17+**.
+2. Clone the repository and open the root folder (`FoodZipp`) in Android Studio.
+3. Let Gradle sync the project (requires Android Gradle Plugin 8.5.2 and Kotlin 2.0.21).
+4. Select the `app` configuration and click **Run** to install on an emulator or physical device.
+
+### 🔁 Configuring real integrations
+
+| Integration | File | Hook | Notes |
+|-------------|------|------|-------|
+| SMS OTP | `app/src/main/java/com/foodzipp/app/auth/AuthRepository.kt` | `sendOtpToPhone` | Replace with Twilio, MessageBird, etc. |
+| Email OTP | same as above | `sendOtpToEmail` | Plug into SendGrid, AWS SES, etc. |
+| Instagram/Facebook OAuth | same | `authenticateSocial` | Connect to Meta Login API. |
+| QR tracking | `app/src/main/java/com/foodzipp/app/auth/LoginViewModel.kt` | `refreshQr` | Persist `session` UUID to your backend for analytics. |
+| Analytics | `app/src/main/java/com/foodzipp/app/auth/AnalyticsTracker.kt` | `track` | Forward events to Firebase Analytics, Mixpanel, etc. |
+
+Each method currently uses the `FakeAuthRepository` stub so you can demo flows offline. Swap in production clients by implementing `AuthRepository` and injecting it into `LoginViewModel`.
+
+### 🧪 Testing recommendations
+
+- **QR scanning**: Validate with Google Lens, iOS Camera, and popular QR scanner apps.
+- **Responsive layout**: Inspect with small/medium/large device previews in Android Studio.
+- **Load testing**: Back your real repositories with rate limiting & queueing; instrument analytics events emitted in `LoginViewModel`.
+- **Security**: Harden backend endpoints, enforce HTTPS, and add integrity checks for OAuth callbacks.
+
